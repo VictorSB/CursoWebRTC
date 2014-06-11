@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="utf-8">
+		<title>CursoWebRTC</title>
+		<link rel="stylesheet" href="/static/css/style.css">
+		<script src="/static/js/adapter.js"></script>
+		<script src="https://cdn.pubnub.com/pubnub.min.js"></script>
+		<script src="/static/js/CursoWebRTC.PubnubSignaling.js"></script>
+		<script src="/static/js/CursoWebRTC.Ej2.js"></script>
+	</head>
+
+	<body onload="CursoWebRTC.Ej2.prepare()">
+		<div class="step">
+			<h1>1. Simple Video Chat</h1>
+			<div id="controls">
+				<input type="button" value="Init" onclick="CursoWebRTC.Ej2.init()">
+				<input type="button" value="Init Signaling" onclick="CursoWebRTC.Ej2.initSignaling()">
+				<input type="button" value="Send test message" onclick="CursoWebRTC.Ej2.sendTestMessage()">
+				<input type="button" value="Init RTCPeerConnection (Caller)" onclick="CursoWebRTC.Ej2.initPeerConnection(true)">
+				<input type="button" value="Init RTCPeerConnection (Recipient)" onclick="CursoWebRTC.Ej2.initPeerConnection(false)">
+				<input type="button" value="Send SDP Answer" onclick="CursoWebRTC.Ej2.sendSDPAnswer()">
+			</div>
+
+			<video autoplay id="myvideo"></video>
+			<video autoplay id="remotevideo"></video>
+		</div>	
+	</body>
+</html>
