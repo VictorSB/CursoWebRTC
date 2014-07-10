@@ -83,8 +83,15 @@ CursoWebRTC.Ej1 = (function(C, undefined) {
 		var idata = ctx.getImageData(0,0,320,240);
 		var data = idata.data;
 		
+		var center_x = - 240 / 2;
+		var center_y = - 320 / 2;
+
+		var row = 0;
+		var col = 0;
+
 		//Iterate trough the pixels (jump 4)
 		for(var i = 0; i < data.length; i+=4) {
+
 			var r = data[i];
 			var g = data[i+1];
 			var b = data[i+2];
@@ -92,10 +99,23 @@ CursoWebRTC.Ej1 = (function(C, undefined) {
 			//Calc greyscale
 			var brightness = (3*r+4*g+b)>>>3;
 
-			//Set greyscale
-			data[i] = brightness;
-			data[i+1] = brightness;
-			data[i+2] = brightness;
+			if(_distance_A_B([center_x,center_y],[row, col]) < 100){
+				//Set greyscale
+				data[i] = brightness;
+				data[i+1] = brightness;
+				data[i+2] = brightness;				
+			} else{
+				data[i] = 255;
+				data[i+1] = 255;
+				data[i+2] = 255;			
+			}
+
+
+			col ++;
+			if(col==320){
+				col = 0;
+				row++;
+			}
 		}
 		idata.data = data;
 
@@ -129,6 +149,14 @@ CursoWebRTC.Ej1 = (function(C, undefined) {
 		console.warn(text);
 	};
 
+	var _distance_A_B =  function(A,B){
+		//console.log(A);
+		//console.log(B);
+		var d = Math.sqrt(( (A[0]+B[0]) * (A[0]+B[0]) ) + ( (A[1]+B[1]) * (A[1]+B[1]) ))
+		//console.log(d);
+		return d;
+	};
+
 	return {
 		prepare: prepare,
 		init: init,
@@ -141,6 +169,7 @@ CursoWebRTC.Ej1 = (function(C, undefined) {
 		initScreenSharing: initScreenSharing,
 		stopScreenSharing: stopScreenSharing,
 		params: params,
+		_distance_A_B: _distance_A_B
 	};
 
 })(CursoWebRTC);
