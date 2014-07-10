@@ -107,7 +107,8 @@ CursoWebRTC.Ej1 = (function(C, undefined) {
 			} else{
 				data[i] = 255;
 				data[i+1] = 255;
-				data[i+2] = 255;			
+				data[i+2] = 255;	
+				data[i+3] = 0;		
 			}
 
 
@@ -121,6 +122,14 @@ CursoWebRTC.Ej1 = (function(C, undefined) {
 
 		//Draw it to the effect canvas
 		var ctx2 = params["effectcanvas"].getContext('2d');
+		ctx2.save();
+		ctx2.beginPath();
+		ctx2.moveTo(100,100);
+		ctx2.lineTo(100,200);
+		ctx2.lineTo(200,200);
+		ctx2.lineTo(100,100);
+		ctx2.clip();
+
 		ctx2.putImageData(idata,0,0);
 
 		//Repeat at 30fps
@@ -150,10 +159,7 @@ CursoWebRTC.Ej1 = (function(C, undefined) {
 	};
 
 	var _distance_A_B =  function(A,B){
-		//console.log(A);
-		//console.log(B);
 		var d = Math.sqrt(( (A[0]+B[0]) * (A[0]+B[0]) ) + ( (A[1]+B[1]) * (A[1]+B[1]) ))
-		//console.log(d);
 		return d;
 	};
 
