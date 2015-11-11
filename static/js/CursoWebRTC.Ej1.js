@@ -62,6 +62,7 @@ CursoWebRTC.Ej1 = (function(C, undefined) {
 	var canvasToImage = function(){
 		//After that to an image tag
 		var data = params["canvas"].toDataURL('image/png');
+		console.error(data);
 		params["photo"].setAttribute('src', data);
 	};
 

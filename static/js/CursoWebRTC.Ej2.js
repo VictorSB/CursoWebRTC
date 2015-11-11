@@ -4,15 +4,10 @@ CursoWebRTC.Ej2 = (function(C, undefined) {
 
 	var CONSTRAINTS = {
 		audio: true,
-		video: {
-			mandatory: {
-				maxWidth: 320,
-				maxHeight: 240
-			}
-		}
+		video: {"optional":[{"minWidth":"1280"},{"minHeight":"720"}]}
 	};
 
-	var PCCONFIG = {"iceServers": [{"urls": "stun:stun.l.google.com:19302"}]};
+	var PCCONFIG = {'iceServers': [{'urls': 'stun:stun.l.google.com:19302'}, { url: 'turn:104.155.26.203', credential: 'ejemplo', username: 'ejemplo@cursowebrtc.com'}]};
 	var PCCONSTRAINTS = {"optional": [{"googImprovedWifiBwe": true}]};
 	var OFFERCONSTRAINTS = {"optional": [], "mandatory": {}};
 	var SDPCONSTRAINTS = {
@@ -117,6 +112,7 @@ CursoWebRTC.Ej2 = (function(C, undefined) {
 
 	var gotStream = function(stream){
 		console.log("STREAM READY");
+		console.log(this);
 		params['stream'] = stream;
 		params['video'].src = window.URL.createObjectURL(stream);
 	};
@@ -139,12 +135,10 @@ CursoWebRTC.Ej2 = (function(C, undefined) {
 
 	var onSignalingStateChange = function(){
 		console.log("onSignalingStateChange");
-
 	};
 
 	var onIceConnectionStateChange = function(){
 		console.log("onIceConnectionStateChange");
-
 	};
 	//End of PeerConnection Listeners
 
@@ -165,10 +159,16 @@ CursoWebRTC.Ej2 = (function(C, undefined) {
 
 	var onSetRemoteDescriptionSuccess = function(){
 		console.log("onSetRemoteDescriptionSuccess");
+		console.log(params['peerConnection'].iceConnectionState);
+		console.log(params['peerConnection'].iceGatheringState);
+		console.log(params['peerConnection'].signalingState);
 	};
 
 	var onSetSessionDescriptionError = function(error){
 		console.log("onSetSessionDescriptionError");
+		console.log(params['peerConnection'].iceConnectionState);
+		console.log(params['peerConnection'].iceGatheringState);
+		console.log(params['peerConnection'].signalingState);
 	};
 	//End of SDP Listeners
 
